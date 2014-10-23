@@ -23,6 +23,6 @@ RawData.3.2$Steps<-as.numeric(RawData.3.2$Steps)
 #Generating scatter plot with Steps on x-axis and Miles on y-axis
 graph2<-ggplot(RawData.3.2, aes(x=Steps, y=Miles)) +
   geom_point(shape=1) +
-  ggtitle("Scatter chart showing Steps Vs Miles"))
+  ggtitle("Scatter chart showing Steps Vs Miles")
 
 

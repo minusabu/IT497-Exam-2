@@ -1,7 +1,7 @@
 IT497-Exam-2
 ============
 
-Exam Part 2
+Exam 2 - Part 2
 -----------
 
 There are 5 questions for the exam and the files for each question are listed below:

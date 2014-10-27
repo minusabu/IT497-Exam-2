@@ -13,10 +13,12 @@ UrlAddress.5<-paste0("https://raw.githubusercontent.com/jrwolf/IT497/master/NYCH
 DataUrl.5<-getURL(UrlAddress.5)
 
 #Convert data into data frame
-RawData.5<-read.csv(textConnection(DataUrl.5),header=T, sep=",", strip.white=TRUE)
+RawData.5<-read.csv(textConnection(DataUrl.5),header=T, sep=",", strip.white=TRUE, colClasses = "character")
 
 RawData.5$DBA<- gsub("MCDONALD.*","MCDONALD'S", RawData.5$DBA, ignore.case=T)
 RawData.5$DBA<- gsub("Wendy.*","WENDY'S", RawData.5$DBA, ignore.case=T)
+
+#RawData.5$GRADEDATE<-as.Date(RawData.5$GRADEDATE, "%m/%d/%y")
 @
 
 <<plotgraph, echo=FALSE, message=FALSE, fig=TRUE>>=
@@ -26,5 +28,24 @@ ggplot(RawData.5, aes(CURRENTGRADE, fill=DBA))+ geom_bar(position=position_dodge
   labs(x="Grade", y="Number of grades", title="Grades by restaurant")+
   theme(legend.title=element_blank())
 @
-The comparison of the cleanliness grades shows that McDonald's has received more number of A grades compared to Wendy's.  This is because McDonald's evidently has more number of stores and therefore more inspections. It is noticed that Wendy's is consistently receiving top grades while McDonald's has been receiving poor grades as well. Therfore, it can be concluded from the reported inspections that \textbf{Wendy's is cleaner than McDonald's.} \\  
+The comparison of the cleanliness grades shows that McDonald's has received more number of A grades compared to Wendy's.  This is because McDonald's evidently has more number of stores and therefore more inspections. Therefore, we cannot come to a conclusion just by looking at this graph. So let us try to plot the grade distribution for each restaurant separately.\\
+
+<<plotmcdonalds, echo=FALSE, message=FALSE, fig=TRUE>>=
+#plot the count of each grade for McDonald's
+ggplot(subset(RawData.5, DBA=="MCDONALD'S"), aes(CURRENTGRADE, fill=CURRENTGRADE))+ geom_bar(position=position_dodge()) + 
+  labs(x="Grade", y="Number of grades", title="Grades for McDonald's")+
+  theme(legend.title=element_blank()) + guides(fill=FALSE)
+
+@
+From this graph, we can see that McDonald's has recieved a lot of A grades, but at the same time, they have received a considerable number of C grades as well. Let us look at the grade distribution for Wendy's. 
+
+<<plotwendys, echo=FALSE, message=FALSE, fig=TRUE>>=
+#plot the count of each grade for Wendy's
+ggplot(subset(RawData.5, DBA=="WENDY'S"), aes(CURRENTGRADE, fill=CURRENTGRADE))+ geom_bar(position=position_dodge()) + 
+  labs(x="Grade", y="Number of grades", title="Grades for Wendy's")+
+  theme(legend.title=element_blank()) +  guides(fill=FALSE)
+@
+It is clear that even though Wendy's had less number of inspections, they were consistently scoring top grades (A or B), while McDonald's has been receiving poor grades as well.\\
+
+Therfore, it can be concluded from the reported inspections that \textbf{Wendy's is cleaner than McDonald's.} \\  
 \end{document}

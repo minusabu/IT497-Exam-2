@@ -18,7 +18,6 @@ RawData.5<-read.csv(textConnection(DataUrl.5),header=T, sep=",", strip.white=TRU
 RawData.5$DBA<- gsub("MCDONALD.*","MCDONALD'S", RawData.5$DBA, ignore.case=T)
 RawData.5$DBA<- gsub("Wendy.*","WENDY'S", RawData.5$DBA, ignore.case=T)
 
-#RawData.5$GRADEDATE<-as.Date(RawData.5$GRADEDATE, "%m/%d/%y")
 @
 
 <<plotgraph, echo=FALSE, message=FALSE, fig=TRUE>>=
@@ -32,7 +31,7 @@ The comparison of the cleanliness grades shows that McDonald's has received more
 
 <<plotmcdonalds, echo=FALSE, message=FALSE, fig=TRUE>>=
 #plot the count of each grade for McDonald's
-ggplot(subset(RawData.5, DBA=="MCDONALD'S"), aes(CURRENTGRADE, fill=CURRENTGRADE))+ geom_bar(position=position_dodge()) + 
+ggplot(subset(RawData.5, DBA=="MCDONALD'S"), aes(CURRENTGRADE, fill=CURRENTGRADE))+ geom_bar() + 
   labs(x="Grade", y="Number of grades", title="Grades for McDonald's")+
   theme(legend.title=element_blank()) + guides(fill=FALSE)
 
@@ -41,7 +40,7 @@ From this graph, we can see that McDonald's has received a lot of A grades, but 
 
 <<plotwendys, echo=FALSE, message=FALSE, fig=TRUE>>=
 #plot the count of each grade for Wendy's
-ggplot(subset(RawData.5, DBA=="WENDY'S"), aes(CURRENTGRADE, fill=CURRENTGRADE))+ geom_bar(position=position_dodge()) + 
+ggplot(subset(RawData.5, DBA=="WENDY'S"), aes(CURRENTGRADE, fill=CURRENTGRADE))+ geom_bar() + 
   labs(x="Grade", y="Number of grades", title="Grades for Wendy's")+
   theme(legend.title=element_blank()) +  guides(fill=FALSE)
 @

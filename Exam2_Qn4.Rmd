@@ -1,0 +1,48 @@
+Question 4
+-----------
+
+```{r ReadData4, message=FALSE}
+#load RCurl for reading data from secure links
+#Loading ggplot2 for graphs
+library(RCurl)
+library(ggplot2)
+
+#Reading the data from Secure link using getURL function from RCurl package
+#Put URL address into the object
+UrlAddress.4<-paste0("https://raw.githubusercontent.com/jrwolf/IT497/master/databreaches.csv")
+
+#Download the data breaches data
+DataUrl.4<-getURL(UrlAddress.4)
+
+#Convert data into data frame
+RawData.4<-read.csv(textConnection(DataUrl.4),header=T, sep=",", strip.white=TRUE)
+
+#Removing all the data prior to 2008
+FinalData.4<-subset(x=RawData.4, YEAR>=2008)
+
+```
+
+**Plot 1**
+```{r graph1, fig=TRUE}
+#plotting a bar chart with Year on the x-axis and Number of breaches on the y-axis
+ggplot(data=FinalData.4, aes(x=factor(YEAR), fill=factor(YEAR))) +
+  geom_bar() + 
+  labs(x="Year", y="Number of data breaches", title="Number of data breaches by year") +
+  guides(fill=FALSE)
+```
+
+The number of data breaches increased from 2008 and reached a peak in 2010. Since then, the numbers have been going down except for a slight increase in 2012. This could be attributed to the fact that technological advances are making data more secure.
+
+**Plot 2**
+```{r graph2}
+#plotting a bar chart with Year on the x-axis and Number of data breaches by method per year on the y-axis
+ggplot(data=FinalData.4, aes(x=factor(YEAR), fill=METHOD))+ 
+  geom_bar(position=position_dodge()) + 
+  labs(x="Year", y="Number of data breaches", 
+       title="Number of data breaches by method per year") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+```
+
+Hacking is the most common method of data attack throughout the years from 2008. It can be noticed that, there are only two successful methods of attack reported in the year 2014 compared to several different methods in the past.
+

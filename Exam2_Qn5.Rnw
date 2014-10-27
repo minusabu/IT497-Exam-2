@@ -1,0 +1,30 @@
+\documentclass{article}
+
+\begin{document}
+<<readData, echo=FALSE, message=FALSE>>=
+library(RCurl)
+library(ggplot2)
+
+#Reading the data from Secure link using getURL function from RCurl package
+#Put URL address into the object
+UrlAddress.5<-paste0("https://raw.githubusercontent.com/jrwolf/IT497/master/NYCHealthData.csv")
+
+#Download the spending data
+DataUrl.5<-getURL(UrlAddress.5)
+
+#Convert data into data frame
+RawData.5<-read.csv(textConnection(DataUrl.5),header=T, sep=",", strip.white=TRUE)
+
+RawData.5$DBA<- gsub("MCDONALD.*","MCDONALD'S", RawData.5$DBA, ignore.case=T)
+RawData.5$DBA<- gsub("Wendy.*","WENDY'S", RawData.5$DBA, ignore.case=T)
+@
+
+<<plotgraph, echo=FALSE, message=FALSE, fig=TRUE>>=
+
+#Plot the count of each grade for both McDonald's and Wendy's 
+ggplot(RawData.5, aes(CURRENTGRADE, fill=DBA))+ geom_bar(position=position_dodge()) + 
+  labs(x="Grade", y="Number of grades", title="Grades by restaurant")+
+  theme(legend.title=element_blank())
+@
+The comparison of the cleanliness grades shows that McDonald's has received more number of A grades compared to Wendy's.  This is because McDonald's evidently has more number of stores and therefore more inspections. It is noticed that Wendy's is consistently receiving top grades while McDonald's has been receiving poor grades as well. Therfore, it can be concluded from the reported inspections that \textbf{Wendy's is cleaner than McDonald's.} \\  
+\end{document}

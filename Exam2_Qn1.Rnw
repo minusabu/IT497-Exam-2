@@ -1,0 +1,23 @@
+\documentclass{article}
+
+\begin{document}
+<<preparedata, echo=FALSE>>=
+#Reading the data from the data source
+RawData.1<-read.table("http://www.itk.ilstu.edu/faculty/jrwolf/spendingdata.txt",
+                    header=T, sep=",", skip=31, colClasses = "character")
+
+#Cleaning the data by removing the unwanted rows
+#We only want the first row of the data.
+RawData.1<-RawData.1[-2,]
+
+#Further cleaning by removing the first column as it's not needed
+FinalData.1<-RawData.1[,2:8]
+
+#Each value in the data frame is received as a character.
+#Convert each character value to numeric inorder to peform arithmetic operations
+FinalData.1[,]<-as.numeric(FinalData.1[,])
+@
+\textbf{Cash is the most used retail payment instrument.}\\
+In October 2012, the average American consumer had \Sexpr{round(FinalData.1$Total)} transactions, including purchases and bill payments, and \Sexpr{floor(FinalData.1$Cash)} of these \Sexpr{round(FinalData.1$Total)} payments involved cash. At \Sexpr{round(FinalData.1$Cash*100/FinalData.1$Total)} percent, cash makes up the single largest share of consumer transaction activity, followed by debit cards at \Sexpr{round(FinalData.1$Debit*100/FinalData.1$Total)} percent, and credit cards at \Sexpr{round(FinalData.1$Credit*100/FinalData.1$Total)} percent. Electronic methods (online banking bill pay and bank account number payments) account for \Sexpr{round(FinalData.1$Electronic*100/FinalData.1$Total)} percent, while checks make up \Sexpr{round(FinalData.1$Check*100/FinalData.1$Total)} percent. All other payment represent less than \Sexpr{round(ceiling(FinalData.1$Other)*100/ceiling(FinalData.1$Total))} percent of monthly transaction activity, with text and mobile payments barely registering at less than one half of one percent. 
+
+\end{document}

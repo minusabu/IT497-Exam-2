@@ -1,0 +1,45 @@
+\documentclass{article}
+
+\begin{document}
+<<preparedata2, echo=FALSE, message=FALSE>>=
+library(RCurl)
+
+#Reading the data from Secure link using getURL function from RCurl package
+#Put URL address into the object
+UrlAddress.2<-paste0("https://raw.githubusercontent.com/jrwolf/IT497/master/spendingdata.txt")
+
+#Download the spending data
+DataUrl.2<-getURL(UrlAddress.2)
+
+#Convert data into data frame
+RawData.2<-read.table(textConnection(DataUrl.2),header=T, sep=",", skip=31, colClasses = "character",strip.white=TRUE)
+
+#Cleaning the raw data by removing the first column as it's not needed
+FinalData.2<-RawData.2[,2:8]
+
+#Let us split the data frame into two separate data frames
+#NumberData has the first row containing the average number of purchases
+NumberData<-FinalData.2[1,]
+
+#Convert the character data frame to numeric
+NumberData[,]<-as.numeric(NumberData[,])
+
+#The second row containing the average transaction values is stored in ValueData
+AmountData<-FinalData.2[2,]
+
+#removing the unwanted characters in the data
+#First, let's get rid of the "$" sign
+AmountData[1,]<-gsub("\\$","",AmountData[1,])
+
+#The extra white spaces are also removed
+AmountData[1,]<-gsub("\\s","", AmountData[1,])
+
+ValueData<-FinalData.2[3,]
+#Convert the character data frame to numeric
+ValueData[,]<-as.numeric(ValueData[,])
+
+@
+\textbf{Cash is the most used retail payment instrument.}\\
+By value, cash accounts for a relatively small share of total consumer transaction activity at \Sexpr{ValueData$Cash} percent, while electronic methods make up \Sexpr{ValueData$Electronic} percent and checks \Sexpr{ValueData$Check} percent. These findings suggest that although consumers don't use electronic methods or checks very often, when they do, it tends to be for much higher-value transactions. In contrast, cash is used quite often, but primarily for low-value transactions. In fact, the average value of a cash transaction is only \$\Sexpr{AmountData$Cash}, compared with \$\Sexpr{AmountData$Check} for checks and \$\Sexpr{AmountData$Debit} for debit cards.
+
+\end{document}

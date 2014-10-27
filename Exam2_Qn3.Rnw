@@ -1,0 +1,35 @@
+\documentclass{article}
+
+\begin{document}
+<<Loadlib>>=
+#Loading the required packages
+#ggplot2 is for graphs
+#devtools is for using the source_url command to read data from a secure url
+library(ggplot2)
+library(devtools)
+@
+
+
+<<ReadLocal, fig=TRUE, fig.height=6, fig.width=6, fig.align='center', message=FALSE>>=
+#read the file stored locally
+source("Exam2_Qn3_Local.R")
+
+#generate the graph
+graph1 + #theme_bw(base_size=15) # 
+ ggtitle("Scatter chart showing Miles Vs Steps" )
+  
+@
+
+It is evident from the scatter plot that there are only a few people who walk more than 10 miles a day. \\
+
+
+<<ReadRemote, fig=TRUE, fig.height=6, fig.width=6, fig.align='center', message=FALSE>>=
+#read the file stored on remote secure location
+graph2<-source_url("https://raw.githubusercontent.com/minusabu/IT497-Exam-2/master/Exam2_Qn3_Remote.R")
+
+#display the graph
+print(graph2)
+
+@
+Typically, majority of the fitbit users take between 0 and 15000 steps a day.\\ 
+\end{document}

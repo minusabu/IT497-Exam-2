@@ -37,7 +37,7 @@ ggplot(subset(RawData.5, DBA=="MCDONALD'S"), aes(CURRENTGRADE, fill=CURRENTGRADE
   theme(legend.title=element_blank()) + guides(fill=FALSE)
 
 @
-From this graph, we can see that McDonald's has recieved a lot of A grades, but at the same time, they have received a considerable number of C grades as well. Let us look at the grade distribution for Wendy's. 
+From this graph, we can see that McDonald's has received a lot of A grades, but at the same time, they have received a considerable number of C grades as well. Let us look at the grade distribution for Wendy's. 
 
 <<plotwendys, echo=FALSE, message=FALSE, fig=TRUE>>=
 #plot the count of each grade for Wendy's
@@ -47,5 +47,5 @@ ggplot(subset(RawData.5, DBA=="WENDY'S"), aes(CURRENTGRADE, fill=CURRENTGRADE))+
 @
 It is clear that even though Wendy's had less number of inspections, they were consistently scoring top grades (A or B), while McDonald's has been receiving poor grades as well.\\
 
-Therfore, it can be concluded from the reported inspections that \textbf{Wendy's is cleaner than McDonald's.} \\  
+Therefore, it can be concluded from the reported inspections that \textbf{Wendy's is cleaner than McDonald's.} \\  
 \end{document}

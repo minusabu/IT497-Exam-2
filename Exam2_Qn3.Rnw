@@ -1,6 +1,8 @@
 \documentclass{article}
 
 \begin{document}
+
+\section*{Question 3}
 <<Loadlib>>=
 #Loading the required packages
 #ggplot2 is for graphs

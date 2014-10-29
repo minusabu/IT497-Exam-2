@@ -1,6 +1,8 @@
 \documentclass{article}
 
 \begin{document}
+
+\section*{Is McDonald's cleaner than Wendy's?}
 <<readData, echo=FALSE, message=FALSE>>=
 library(RCurl)
 library(ggplot2)
@@ -46,5 +48,5 @@ ggplot(subset(RawData.5, DBA=="WENDY'S"), aes(CURRENTGRADE, fill=CURRENTGRADE))+
 @
 It is clear that even though Wendy's had less number of inspections, they were consistently scoring top grades (A or B), while McDonald's has been receiving poor grades as well.\\
 
-Therefore, it can be concluded from the reported inspections that \textbf{Wendy's is cleaner than McDonald's.} \\  
+Thus, the percentage of A grade is more for Wendy's than that for McDonald's. Therefore, with the available sample set, it can be concluded  that \textbf{Wendy's is cleaner than McDonald's.} \\  
 \end{document}
